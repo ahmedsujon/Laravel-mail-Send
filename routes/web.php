@@ -22,3 +22,5 @@ Route::get('/email', 'EmailController@create');
 Route::post('/email', 'EmailController@sendEmail')->name('send.email');
 
 Route::resource('products', 'ProductController');
+
+Route::get('send-mail', 'HomeController@sendMail');
