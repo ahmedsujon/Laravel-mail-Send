@@ -33,7 +33,7 @@ class SendMailJob implements ShouldQueue
      */
     public function handle()
     {
-        Mail::to($this->details['to'])
+        Mail::to($this->details['email'])
              ->send(new SendMail($this->details));
     }
 }
