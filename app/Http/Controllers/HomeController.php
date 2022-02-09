@@ -12,6 +12,17 @@ class HomeController extends Controller
      *
      * @return void
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
+    public function index()
+    {
+        return view('home');
+    }
+
+
     public function sendMail()
     {
         $details['to'] = 'harsukh21@gmail.com';
@@ -24,3 +35,4 @@ class HomeController extends Controller
         return response('Email sent successfully!!');
     }
 }
+
