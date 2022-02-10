@@ -18,16 +18,4 @@ class HomeController extends Controller
         return view('home');
     }
 
-
-    public function sendMail()
-    {
-        $details['to'] = 'harsukh21@gmail.com';
-        $details['name'] = 'Receiver Name';
-        $details['subject'] = 'Hello Laravelcode';
-        $details['message'] = 'Here goes all message body.';
-
-        SendMailJob::dispatch($details);
-
-        return response('Email sent successfully!!');
-    }
 }

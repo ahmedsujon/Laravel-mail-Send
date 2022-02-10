@@ -20,3 +20,7 @@ Route::get('send-mail', 'HomeController@sendMail');
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+Route::get('add-to-log', 'LogActivityController@myTestAddToLog');
+Route::get('logActivity', 'LogActivityController@logActivity');
