@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\LogActivity as HelpersLogActivity;
 use App\Models\LogActivity;
 use Illuminate\Http\Request;
 
@@ -10,7 +11,7 @@ class LogActivityController extends Controller
 
     public function myTestAddToLog()
     {
-        LogActivity::addToLog('My Testing Add To Log.');
+        HelpersLogActivity::addToLog('My Testing Add To Log.');
         dd('log insert successfully.');
     }
 
@@ -22,7 +23,7 @@ class LogActivityController extends Controller
      */
     public function logActivity()
     {
-        $logs = LogActivity::logActivityLists();
+        $logs = HelpersLogActivity::logActivityLists();
         return view('logActivity',compact('logs'));
     }
 
