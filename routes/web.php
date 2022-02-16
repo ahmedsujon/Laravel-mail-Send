@@ -24,3 +24,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('add-to-log', 'LogActivityController@myTestAddToLog');
 Route::get('logActivity', 'LogActivityController@logActivity');
+
+
+Route::get('/image-upload', 'FileUpload@createForm');
+Route::post('/image-upload', 'FileUpload@fileUpload')->name('imageUpload');
+
