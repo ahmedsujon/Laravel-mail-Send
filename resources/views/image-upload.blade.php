@@ -18,61 +18,56 @@
             padding: 8px;
             max-width: 100px;
         }
+        .img-thumbnail{
+  width:100%;
+  height:100px;
+  object-fit: cover;
+  object-position: center;
+  margin:10px;
+}
+
+@media(max-width: 480px) {
+  .img-thumbnail{
+    height:50px;
+  }
+}
     </style>
 </head>
 <body>
-    <div class="container mt-5">
-        <h3 class="text-center mb-5">Image Upload in Laravel</h3>
-        <form action="{{route('imageUpload')}}" method="post" enctype="multipart/form-data">
-            @csrf
-            @if ($message = Session::get('success'))
-                <div class="alert alert-success">
-                    <strong>{{ $message }}</strong>
-                </div>
-            @endif
-            @if (count($errors) > 0)
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-            <div class="user-image mb-3 text-center">
-                <div class="imgPreview"> </div>
-            </div>
-            <div class="custom-file">
-                <input type="file" name="imageFile[]" class="custom-file-input" id="images" multiple="multiple">
-                <label class="custom-file-label" for="images">Choose image</label>
-            </div>
-            <button type="submit" name="submit" class="btn btn-primary btn-block mt-4">
-                Upload Images
-            </button>
-        </form>
-    </div>
+<div class="container">
+  <h3 class="page-header">Upload Photos Page</h3>
 
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script>
-        $(function() {
-        // Multiple images preview with JavaScript
-        var multiImgPreview = function(input, imgPreviewPlaceholder) {
-            if (input.files) {
-                var filesAmount = input.files.length;
-                for (i = 0; i < filesAmount; i++) {
-                    var reader = new FileReader();
-                    reader.onload = function(event) {
-                        $($.parseHTML('<img>')).attr('src', event.target.result).appendTo(imgPreviewPlaceholder);
-                    }
-                    reader.readAsDataURL(input.files[i]);
-                }
-            }
-        };
-        $('#images').on('change', function() {
-            multiImgPreview(this, 'div.imgPreview');
-        });
-        });
-    </script>
+  <form class="form-horizontal">
+    <div class="form-group">
+      <label for="photo" class="col-sm-2 control-label">Upload</label>
+      <div class="col-sm-10">
+        <input type="file" class="form-control" name="photo" id="photo" accept=".png, .pdf, .jpg, .jpeg" onchange="readFile(this);" multiple>
+      </div>
+    </div>
+  </form>
+
+  <div id="status"></div>
+  <div id="photos" class="row"></div>
+</div>
+
+<script>
+	function readFile(input) {
+  	$("#status").html('Processing...');
+    counter = input.files.length;
+		for(x = 0; x<counter; x++){
+			if (input.files && input.files[x]) {
+
+				var reader = new FileReader();
+
+				reader.onload = function (e) {
+        	$("#photos").append('<div class="col-md-3 col-sm-3 col-xs-3"><img src="'+e.target.result+'" class="img-thumbnail"></div>');
+				};
+
+				reader.readAsDataURL(input.files[x]);
+			}
+    }
+    if(counter == x){$("#status").html('');}
+  }
+</script>
 </body>
 </html>

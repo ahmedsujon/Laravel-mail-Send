@@ -10,20 +10,19 @@ class FileUpload extends Controller
 
   public function fileUpload(Request $req){
     $req->validate([
-      'imageFile' => 'required',
-      'imageFile.*' => 'mimes:jpeg,jpg,png,gif,csv,txt,pdf'
+      'file_name' => 'required',
+      'file_name.*' => 'mimes:jpeg,jpg,png,gif,csv,txt,pdf'
     ]);
-    
-    if($req->hasfile('imageFile')) {
-        foreach($req->file('imageFile') as $file)
+
+    if($req->hasfile('file_name')) {
+        foreach($req->file('file_name') as $file)
         {
             $name = $file->getClientOriginalName();
             $file->move(public_path().'/uploads/', $name);
             $imgData[] = $name;
         }
         $fileModal = new Image();
-        $fileModal->name = json_encode($imgData);
-        $fileModal->image_path = json_encode($imgData);
+        $fileModal->file_name = json_encode($imgData);
 
 
         $fileModal->save();
